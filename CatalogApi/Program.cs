@@ -39,9 +39,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//Caching
-app.UseResponseCaching();
-
 app.UseAuthorization();
 
 app.MapControllers();

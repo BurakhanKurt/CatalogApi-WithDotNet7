@@ -39,7 +39,9 @@ namespace Catalog.Service.Decorator
 
             if (!_categoryMemoryCache.TryGetValue(CacheProductKey, out _))
             {
-                _categoryMemoryCache.Set(CacheProductKey, _repository.FindAll(false).ToList());
+                _categoryMemoryCache.Set(CacheProductKey, _repository
+                    .FindAll(false)
+                    .ToList());
             }
         }
 
@@ -81,7 +83,8 @@ namespace Catalog.Service.Decorator
             await _unitOfWork.SaveAsync();
         }
 
-        public Task<IEnumerable<CategoryDto>> GetAllCategoryAsync(PaginationParams requestParams, bool trackChanges)
+        public Task<IEnumerable<CategoryDto>> GetAllCategoryAsync(
+            PaginationParams requestParams, bool trackChanges)
         {
             //Get memory
             var product = _categoryMemoryCache.Get<IEnumerable<Category>>(CacheProductKey)
@@ -94,7 +97,25 @@ namespace Catalog.Service.Decorator
             return Task.FromResult(productDto);
         }
 
-        public Task<HeaderData> GetHeaderDataAsync(int cateogryId, PaginationParams requestParams)
+        public Task<CategoryDto> GetOneCategoryByIdAsync(int cetagoryId)
+        {
+            var category = GetOneCategoryByIdCheckExistAsync(cetagoryId);
+
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+
+            return Task.FromResult(categoryDto);
+        }
+        public async Task<HeaderData> GetHeaderDataAsync(int categoryId,
+            PaginationParams requestParams)
+        {
+            var count = await _repository.GetCountAsync(categoryId);
+            var headerData = CreateHeaderData(count, requestParams);
+
+            return headerData;
+
+        }
+        //override
+        public Task<HeaderData> GetHeaderDataAsync(PaginationParams requestParams)
         {
             var count = _categoryMemoryCache.Get<IEnumerable<Category>>(CacheProductKey).Count();
             var headerData = new HeaderData()
@@ -108,25 +129,25 @@ namespace Catalog.Service.Decorator
             return Task.FromResult(headerData);
         }
 
-        public Task<CategoryDto> GetOneCategoryByIdAsync(int cetagoryId)
+        public async Task<CategoryWithProductsDto> GetOneCategoryByIdWithProductAsync(
+            int categoryId, PaginationParams requestParams)
         {
-            var category = GetOneCategoryByIdCheckExistAsync(cetagoryId);
+            var exist = await _repository.AnyAsync(c=> c.Id == categoryId);
+            
+            if ( ! exist)
+                throw new CategoryNotFoundException(categoryId);
 
-            var categoryDto = _mapper.Map<CategoryDto>(category);
+            var categoryWithProduct = await _repository
+                .GetOneCategoryByIdWithProductAsync(
+                categoryId,
+                requestParams
+                );
 
-            return Task.FromResult(categoryDto);
+            var responseCategory = _mapper.Map<CategoryWithProductsDto>(categoryWithProduct);
+            return responseCategory;
         }
 
-        public Task<HeaderData> GetHeaderDataAsync(PaginationParams requestParams)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<CategoryWithProductsDto> GetOneCategoryByIdWithProductAsync(int categoryId, PaginationParams requestParams)
-        {
-            throw new NotImplementedException();
-        }
-
+        //-----PRIVATE-----//
         private Task<Category> GetOneCategoryByIdCheckExistAsync(int id)
         {
             var categories = _categoryMemoryCache.Get<List<Category>>(CacheProductKey);
@@ -139,7 +160,17 @@ namespace Catalog.Service.Decorator
         }
         private async Task CacheAllProducts() =>
             _categoryMemoryCache.Set(CacheProductKey, await _repository.FindAll(false).ToListAsync());
-
+        private HeaderData CreateHeaderData(int count, PaginationParams requestParams)
+        {
+            var headerData = new HeaderData()
+            {
+                TotalCount = count,
+                PageSize = requestParams.PageSize,
+                CurrentPage = requestParams.PageNumber,
+                TotalPage = (int)Math.Ceiling(count / (double)requestParams.PageSize)
+            };
+            return headerData;
+        }
 
     }
 }

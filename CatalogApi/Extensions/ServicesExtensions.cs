@@ -32,20 +32,17 @@ namespace Catalog.Api.Extensions
         //Service
         public static void ConfigureServices(this IServiceCollection services)
         {
-            //services
-            services.AddScoped<ICategoryService, CategoryService>();
-            
-            //No caching
+            //No caching service
             //services.AddScoped<IProductService, ProductService>();
+            //services.AddScoped<ICategoryService, CategoryService>();
 
-            //decorator 
+            //Decorator -> Caching Service
             services.AddScoped<IProductService, ProductServiceWithCaching>();
+            services.AddScoped<ICategoryService, CategoryServiceWithCaching>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //AutoMapper
             services.AddAutoMapper(typeof(MapProfile));
-            //Caching
-            services.AddResponseCaching();
 
         }
 
