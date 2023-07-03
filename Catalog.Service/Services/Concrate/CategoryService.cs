@@ -36,11 +36,11 @@ namespace Catalog.Service.Services.Concrate
         }
 
         public async Task<IEnumerable<CategoryDto>> GetAllCategoryAsync
-            (PaginationParams requestParams, bool tracChanges)
+            (PaginationParams requestParams, bool trackChanges)
         {
             var categories = await _repository
                 .GetAllCategoriesAsync(requestParams,
-                tracChanges
+                trackChanges
                 );
 
             var categoriesResponse = _mapper.Map<List<CategoryDto>>(categories);

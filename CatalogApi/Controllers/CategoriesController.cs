@@ -68,6 +68,7 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 20 )]
         public async Task<IActionResult> GetAllCategories([FromQuery] PaginationParams requestParams)
         {
             var response = await _categoryService.GetAllCategoryAsync(requestParams, false);

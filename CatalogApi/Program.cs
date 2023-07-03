@@ -23,6 +23,8 @@ builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.RegisterRepositories();
 //Service
 builder.Services.ConfigureServices();
+//Cache
+builder.Services.ConfigureMemoryCaching();
 //------------------//
 
 var app = builder.Build();
@@ -36,6 +38,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Caching
+app.UseResponseCaching();
 
 app.UseAuthorization();
 

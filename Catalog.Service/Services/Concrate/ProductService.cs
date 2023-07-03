@@ -39,12 +39,12 @@ namespace Catalog.Service.Services.Concrate
         }
 
         public async Task<IEnumerable<ProductDto>> GetAllProductAsync
-            (PaginationParams requestParams, bool tracChanges)
+            (PaginationParams requestParams, bool trackChanges)
         {
             var product = await _repository
                 .GetAllProductsAsync(
                 requestParams,
-                tracChanges
+                trackChanges
                 );
 
             var productDto = _mapper.Map<List<ProductDto>>(product);

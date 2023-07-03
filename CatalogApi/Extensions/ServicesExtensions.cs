@@ -4,6 +4,7 @@ using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.Repositories.Concrate;
 using Catalog.Repository.UnitOfWorks.Abstract;
 using Catalog.Repository.UnitOfWorks.Concrate;
+using Catalog.Service.Decorator;
 using Catalog.Service.Services.Abstract;
 using Catalog.Service.Services.Concrate;
 using Microsoft.AspNetCore.Authentication;
@@ -31,12 +32,25 @@ namespace Catalog.Api.Extensions
         //Service
         public static void ConfigureServices(this IServiceCollection services)
         {
+            //services
             services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IProductService, ProductService>();
+            
+            //No caching
+            //services.AddScoped<IProductService, ProductService>();
+
+            //decorator 
+            services.AddScoped<IProductService, ProductServiceWithCaching>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //AutoMapper
             services.AddAutoMapper(typeof(MapProfile));
+            //Caching
+            services.AddResponseCaching();
 
         }
+
+        public static void ConfigureMemoryCaching(this IServiceCollection services) => 
+            services.AddMemoryCache();
 
 
     }
