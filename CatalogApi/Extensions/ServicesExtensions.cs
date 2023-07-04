@@ -1,14 +1,14 @@
-﻿using Catalog.Api.Mapping;
+﻿using Catalog.Api.ActionFilter;
+using Catalog.Api.Mapping;
 using Catalog.Repository;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.Repositories.Concrate;
 using Catalog.Repository.UnitOfWorks.Abstract;
 using Catalog.Repository.UnitOfWorks.Concrate;
 using Catalog.Service.Decorator;
+using Catalog.Service.Logging.Abstract;
+using Catalog.Service.Logging.Concrate;
 using Catalog.Service.Services.Abstract;
-using Catalog.Service.Services.Concrate;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Api.Extensions
@@ -37,8 +37,8 @@ namespace Catalog.Api.Extensions
             //services.AddScoped<ICategoryService, CategoryService>();
 
             //Decorator -> Caching Service
-            services.AddScoped<IProductService, ProductServiceWithCaching>();
-            services.AddScoped<ICategoryService, CategoryServiceWithCaching>();
+            services.AddScoped<IProductService, ProductServiceV2>();
+            services.AddScoped<ICategoryService, CategoryServiceV2>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //AutoMapper
@@ -46,9 +46,19 @@ namespace Catalog.Api.Extensions
 
         }
 
+        //Caching
         public static void ConfigureMemoryCaching(this IServiceCollection services) => 
             services.AddMemoryCache();
-
+        
+        //Logging
+        public static void ConfigureLoggerService(this IServiceCollection services) =>
+           services.AddSingleton<ILoggerService, LoggerService>();
+        
+        //ActionFilter
+        public static void ConfigureActionFilter(this IServiceCollection services)
+        {
+            services.AddScoped<ValidationFilterAttribute>();
+        }
 
     }
 }

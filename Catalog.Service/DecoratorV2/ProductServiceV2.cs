@@ -7,13 +7,15 @@ using Catalog.Entity.Pagination;
 using Catalog.Entity.RequestFeatureas;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.UnitOfWorks.Abstract;
+using Catalog.Service.Logging.Abstract;
 using Catalog.Service.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
+
 namespace Catalog.Service.Decorator
 {
-    public class ProductServiceWithCaching : IProductService
+    public class ProductServiceV2 : IProductService
     {
         private const string CacheProductKey = "ProductCache";
         private readonly IProductRepository _repository;
@@ -21,23 +23,27 @@ namespace Catalog.Service.Decorator
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMemoryCache _memoryCache;
+        private readonly ILoggerService _loggerService;
 
-        public ProductServiceWithCaching(IProductRepository repository,
+        public ProductServiceV2(IProductRepository repository,
             ICategoryRepository categoryRepository,
             IMapper mapper,
             IUnitOfWork unitOfWork,
-            IMemoryCache memoryCache)
+            IMemoryCache memoryCache,
+            ILoggerService loggerService)
         {
             _repository = repository;
             _categoryRepository = categoryRepository;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
             _memoryCache = memoryCache;
+            _loggerService = loggerService;
 
-            if(! memoryCache.TryGetValue(CacheProductKey , out _))
+            if (!memoryCache.TryGetValue(CacheProductKey, out _))
             {
-                _memoryCache.Set(CacheProductKey, _repository.FindAll(false).ToList()); 
+                _memoryCache.Set(CacheProductKey, _repository.FindAll(false).ToList());
             }
+
         }
         //Create
         public async Task<ProductDto> CreateOneProductAsync(ProductCreateDto createdProduct)
@@ -46,19 +52,26 @@ namespace Catalog.Service.Decorator
             var exist = await _categoryRepository.AnyAsync(c => c.Id == createdProduct.CategoryId);
 
             if (!exist)
+            {
+                //log
+                _loggerService.LogError($" -> {createdProduct.CategoryId} idsine sahip category bulunamadı");
                 throw new CategoryNotFoundException(createdProduct.CategoryId);
+            }
+                
 
             var product = _mapper.Map<Product>(createdProduct);
 
             await _repository.CreateAsync(product);
 
             await _unitOfWork.SaveAsync();
+            
+            //log
+            _loggerService.LogInfo($" -> {product.Id} idsine sahip product eklendi");
 
             //Caching
             await CacheAllProducts();
 
             var productDto = _mapper.Map<ProductDto>(product);
-
             return productDto;
         }
         //Remove

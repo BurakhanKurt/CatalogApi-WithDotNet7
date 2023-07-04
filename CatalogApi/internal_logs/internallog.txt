@@ -1,0 +1,119 @@
+2023-07-04 11:50:29.3781 Info Message Template Auto Format enabled
+2023-07-04 11:50:29.5081 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 11:50:29.5200 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 12:15:53.0726 Info Configuration file change detected! Reloading in 1000ms...
+2023-07-04 12:16:03.9325 Info Message Template Auto Format enabled
+2023-07-04 12:16:04.0271 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 12:16:04.0417 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 12:18:58.4273 Info Message Template Auto Format enabled
+2023-07-04 12:18:58.6464 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 12:18:58.6688 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 12:19:29.2564 Info Message Template Auto Format enabled
+2023-07-04 12:19:29.4424 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 12:19:29.4653 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 12:27:05.7808 Info Message Template Auto Format enabled
+2023-07-04 12:27:05.9413 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 12:27:05.9713 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 12:52:33.8629 Info Message Template Auto Format enabled
+2023-07-04 12:52:34.0016 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 12:52:34.0240 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:18:29.7671 Info Message Template Auto Format enabled
+2023-07-04 14:18:30.1061 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:18:30.2018 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:19:08.1646 Info Message Template Auto Format enabled
+2023-07-04 14:19:08.3196 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:19:08.3398 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:27:38.7657 Info AppDomain Shutting down. LogFactory closing...
+2023-07-04 14:27:38.8461 Info LogFactory has been closed.
+2023-07-04 14:35:21.4604 Info Message Template Auto Format enabled
+2023-07-04 14:35:21.6010 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:35:21.6253 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:37:05.5328 Info Message Template Auto Format enabled
+2023-07-04 14:37:05.5927 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:37:05.5927 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:41:05.4135 Info Message Template Auto Format enabled
+2023-07-04 14:41:05.5613 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:41:05.5846 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:41:26.6154 Info Message Template Auto Format enabled
+2023-07-04 14:41:26.7347 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:41:26.7545 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:42:35.9777 Info Configuration file change detected! Reloading in 1000ms...
+2023-07-04 14:42:36.9939 Info Reloading configuration...
+2023-07-04 14:42:36.9939 Info Loading NLog config from XML file: C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 14:42:36.9939 Info Message Template Auto Format enabled
+2023-07-04 14:42:36.9995 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 14:42:36.9995 Info Closing old configuration.
+2023-07-04 14:42:36.9995 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 15:55:59.4919 Info Message Template Auto Format enabled
+2023-07-04 15:55:59.6841 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 15:55:59.7020 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 15:56:34.5123 Info Message Template Auto Format enabled
+2023-07-04 15:56:34.6609 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 15:56:34.6807 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:22:43.9055 Info Message Template Auto Format enabled
+2023-07-04 16:22:44.0899 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:22:44.1095 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:25:17.9065 Info Message Template Auto Format enabled
+2023-07-04 16:25:18.1119 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:25:18.1454 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:27:18.7433 Info Message Template Auto Format enabled
+2023-07-04 16:27:19.2597 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:27:19.2848 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:36:37.7734 Info Message Template Auto Format enabled
+2023-07-04 16:36:37.9107 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:36:37.9769 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:37:44.0264 Info Message Template Auto Format enabled
+2023-07-04 16:37:44.1222 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:37:44.1427 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:41:23.3043 Info Message Template Auto Format enabled
+2023-07-04 16:41:23.7506 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:41:23.8009 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:43:57.7115 Info Message Template Auto Format enabled
+2023-07-04 16:43:57.7512 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:43:57.7512 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:49:17.7776 Info Message Template Auto Format enabled
+2023-07-04 16:49:18.0345 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:49:18.0584 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:50:41.4138 Info Message Template Auto Format enabled
+2023-07-04 16:50:41.4742 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:50:41.4884 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:53:35.2592 Info Message Template Auto Format enabled
+2023-07-04 16:53:35.3282 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:53:35.3428 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 16:59:00.4788 Info Message Template Auto Format enabled
+2023-07-04 16:59:00.6447 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 16:59:00.6682 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:03:12.7813 Info Message Template Auto Format enabled
+2023-07-04 17:03:12.9073 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:03:12.9668 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:04:53.4355 Info Message Template Auto Format enabled
+2023-07-04 17:04:53.5267 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:04:53.5473 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:07:00.9207 Info Message Template Auto Format enabled
+2023-07-04 17:07:01.0624 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:07:01.0778 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:08:06.0789 Info Message Template Auto Format enabled
+2023-07-04 17:08:06.1379 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:08:06.1487 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:09:08.5950 Info Message Template Auto Format enabled
+2023-07-04 17:09:08.6935 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:09:08.7168 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:09:40.4951 Info Message Template Auto Format enabled
+2023-07-04 17:09:40.5662 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:09:40.5662 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:10:38.0812 Info Message Template Auto Format enabled
+2023-07-04 17:10:38.1718 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:10:38.1893 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:12:16.2134 Info Message Template Auto Format enabled
+2023-07-04 17:12:16.3142 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:12:16.3454 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:15:13.9795 Info Message Template Auto Format enabled
+2023-07-04 17:15:14.0719 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:15:14.0977 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:20:34.8046 Info Message Template Auto Format enabled
+2023-07-04 17:20:34.9094 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:20:34.9240 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config
+2023-07-04 17:40:41.7400 Info Message Template Auto Format enabled
+2023-07-04 17:40:41.7400 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-04 17:40:41.7400 Info Closing old configuration.
+2023-07-04 17:40:41.7564 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\MyProject\CatalogApi\CatalogApi\nlog.config

@@ -1,6 +1,11 @@
 using Catalog.Api.Extensions;
+using NLog;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(),
+    "/nlog.config"));
 
 // Add services to the container.
 
@@ -16,6 +21,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 //----EXTENCIONS----//
 //Sql Context
 builder.Services.ConfigureSqlContext(builder.Configuration);
@@ -25,6 +31,10 @@ builder.Services.RegisterRepositories();
 builder.Services.ConfigureServices();
 //Cache
 builder.Services.ConfigureMemoryCaching();
+//Logger
+builder.Services.ConfigureLoggerService();
+//ActionFilter
+builder.Services.ConfigureActionFilter();
 //------------------//
 
 var app = builder.Build();

@@ -1,5 +1,4 @@
 ﻿
-
 using AutoMapper;
 using Catalog.Entity.DTOs;
 using Catalog.Entity.Exceptions;
@@ -15,7 +14,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Catalog.Service.Decorator
 {
-    public class CategoryServiceWithCaching : ICategoryService
+    public class CategoryServiceV2 : ICategoryService
     {
 
         private const string CacheProductKey = "CategoryCache";
@@ -25,7 +24,7 @@ namespace Catalog.Service.Decorator
         private readonly IMemoryCache _categoryMemoryCache;
         private readonly IMemoryCache _categoryWithProductMemoryCache;
 
-        public CategoryServiceWithCaching(ICategoryRepository repository,
+        public CategoryServiceV2(ICategoryRepository repository,
             IMapper mapper, 
             IUnitOfWork unitOfWork, 
             IMemoryCache categoryMemoryCache, 
@@ -59,6 +58,7 @@ namespace Catalog.Service.Decorator
 
             return categoryResponse;
         }
+       
         public async Task RemoveOneCategoryAsync(int categoryId)
         {
             var deletedCategory = await GetOneCategoryByIdCheckExistAsync(categoryId);
@@ -105,6 +105,7 @@ namespace Catalog.Service.Decorator
 
             return Task.FromResult(categoryDto);
         }
+        
         public async Task<HeaderData> GetHeaderDataAsync(int categoryId,
             PaginationParams requestParams)
         {
@@ -114,7 +115,7 @@ namespace Catalog.Service.Decorator
             return headerData;
 
         }
-        //override
+        
         public Task<HeaderData> GetHeaderDataAsync(PaginationParams requestParams)
         {
             var count = _categoryMemoryCache.Get<IEnumerable<Category>>(CacheProductKey).Count();
@@ -158,8 +159,10 @@ namespace Catalog.Service.Decorator
 
             return Task.FromResult(category);
         }
+        
         private async Task CacheAllProducts() =>
             _categoryMemoryCache.Set(CacheProductKey, await _repository.FindAll(false).ToListAsync());
+        
         private HeaderData CreateHeaderData(int count, PaginationParams requestParams)
         {
             var headerData = new HeaderData()

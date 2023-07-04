@@ -21,7 +21,7 @@ namespace Catalog.Api.Controllers
         public async Task<IActionResult> OneCategoryCreate([FromBody] CategoryCreateDto category)
         {
             var response = await _categoryService.CreateOneCategoryAsync(category);
-
+            
             return StatusCode(201, response);
         }
 

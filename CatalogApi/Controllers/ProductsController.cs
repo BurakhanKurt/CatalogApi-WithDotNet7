@@ -1,4 +1,4 @@
-﻿
+﻿using Catalog.Api.ActionFilter;
 using Catalog.Entity.DTOs;
 using Catalog.Entity.Pagination;
 using Catalog.Service.Services.Abstract;
@@ -17,7 +17,10 @@ namespace Catalog.Api.Controllers
         {
             _productService = productService;
         }
-
+        
+        
+        
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost]
         public async Task<IActionResult> OneProductCreate([FromBody] ProductCreateDto product)
         {
@@ -25,6 +28,11 @@ namespace Catalog.Api.Controllers
 
             return StatusCode(201, response);
         }
+
+
+
+
+
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOneProductById([FromRoute(Name = "id")] int productId)
@@ -41,7 +49,7 @@ namespace Catalog.Api.Controllers
 
             return StatusCode(200);
         }
-
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut]
         public async Task<IActionResult> UpdateOneProduct([FromBody] ProductDto updatedProduct)
         {

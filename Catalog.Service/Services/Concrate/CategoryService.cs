@@ -7,6 +7,7 @@ using Catalog.Entity.RequestFeatureas;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.UnitOfWorks.Abstract;
 using Catalog.Service.Services.Abstract;
+using Microsoft.Extensions.Logging;
 
 namespace Catalog.Service.Services.Concrate
 {
@@ -23,7 +24,6 @@ namespace Catalog.Service.Services.Concrate
             _repository = repositoryManager;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
-
         }
 
         public async Task<CategoryDto> GetOneCategoryByIdAsync(int categoryId)
@@ -56,6 +56,7 @@ namespace Catalog.Service.Services.Concrate
             await _repository.CreateAsync(category);
 
             await _unitOfWork.SaveAsync();
+            
 
             var categoryResponse = _mapper.Map<CategoryDto>(category);
 

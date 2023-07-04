@@ -79,7 +79,7 @@ namespace Catalog.Service.Services.Concrate
 
             await _unitOfWork.SaveAsync();
         }
-
+        //TODO Category ıd kontrol et
         public async Task UpdateOneProductAsync(ProductDto updatedProduct)
         {
             var product = await GetOneProductByIdCheckExistAsync(updatedProduct.Id);
