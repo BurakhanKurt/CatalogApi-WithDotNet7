@@ -2,7 +2,7 @@
 using Catalog.Entity.DTOs;
 using Catalog.Entity.Models;
 
-namespace Catalog.Api.Mapping
+namespace Catalog.Entity.Mapping
 {
     public class MapProfile : Profile
     {

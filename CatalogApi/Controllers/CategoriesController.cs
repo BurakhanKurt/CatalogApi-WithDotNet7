@@ -1,11 +1,14 @@
-﻿using Catalog.Entity.DTOs;
-using Catalog.Entity.Pagination;
-using Catalog.Service.Services.Abstract;
+﻿using Api.ActionFilter;
+using Catalog.Entity.DTOs;
+using Catalog.Repository.Pagination;
+using Catalog.Entity.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Catalog.Entity.ActionFilter;
 
-namespace Catalog.Api.Controllers
+namespace Catalog.Entity.Controllers
 {
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
@@ -17,6 +20,8 @@ namespace Catalog.Api.Controllers
             _categoryService = categoryService;
         }
 
+        
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost]
         public async Task<IActionResult> OneCategoryCreate([FromBody] CategoryCreateDto category)
         {
@@ -25,6 +30,8 @@ namespace Catalog.Api.Controllers
             return StatusCode(201, response);
         }
 
+        
+        [ResponseCache(CacheProfileName = "30second")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOneCategoryById([FromRoute(Name = "id")] int categoryId)
         {
@@ -33,6 +40,7 @@ namespace Catalog.Api.Controllers
             return StatusCode(200, response);
         }
 
+        
         [HttpGet("withproducts/{id:int}")]
         public async Task<IActionResult> GetOneCategoryByIdWithProductsAsync
             ([FromRoute(Name = "id")] int categoryId, [FromQuery] PaginationParams requestParams)
@@ -45,12 +53,13 @@ namespace Catalog.Api.Controllers
 
             var headerData = await _categoryService.GetHeaderDataAsync(categoryId,requestParams);
 
-            Response.Headers.Add("Pagination",
+            Response.Headers.Add("Entity",
                 JsonSerializer.Serialize(headerData));
 
             return StatusCode(200, response);
         }
 
+        
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> RemoveOneCategoryById([FromRoute(Name = "id")] int cetegoryId)
         {
@@ -59,6 +68,8 @@ namespace Catalog.Api.Controllers
             return StatusCode(200);
         }
 
+        
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut]
         public async Task<IActionResult> UpdateOneCategory([FromBody] CategoryDto categoryUpdated)
         {
@@ -67,6 +78,7 @@ namespace Catalog.Api.Controllers
             return StatusCode(200);
         }
 
+        
         [HttpGet]
         public async Task<IActionResult> GetAllCategories([FromQuery] PaginationParams requestParams)
         {
@@ -74,7 +86,7 @@ namespace Catalog.Api.Controllers
 
             var headerData = await _categoryService.GetHeaderDataAsync(requestParams);
 
-            Response.Headers.Add("Pagination",
+            Response.Headers.Add("Entity",
                 JsonSerializer.Serialize(headerData));
 
             return StatusCode(200, response);

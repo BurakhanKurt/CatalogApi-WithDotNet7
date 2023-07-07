@@ -1,4 +1,4 @@
-﻿namespace Catalog.Entity.Pagination
+﻿namespace Catalog.Repository.Pagination
 {
     public class PaginationParams
     {

@@ -1,6 +1,5 @@
-﻿using Catalog.Entity.Extensions;
+﻿using Catalog.Repository.Pagination;
 using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
 using Catalog.Repository.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +15,10 @@ namespace Catalog.Repository.Repositories.Concrate
             (PaginationParams requestParams, bool trackCanges)
         {
             return
-               FindAll(trackCanges)
-                .ApplyPaginationCollection(
+               await FindAll(trackCanges)
+                .ApplyPaginationQueryable(
                     requestParams.PageSize,
-                    requestParams.PageNumber);
-
+                    requestParams.PageNumber).ToListAsync();
         }
 
         public async Task<Category> GetOneCategoryByIdWithProductAsync

@@ -1,5 +1,5 @@
 ﻿using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
+using Catalog.Repository.Pagination;
 
 namespace Catalog.Repository.Repositories.Abstract
 {

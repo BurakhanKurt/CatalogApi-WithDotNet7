@@ -1,5 +1,5 @@
 ﻿
-namespace Catalog.Service.Logging.Abstract
+namespace Catalog.Entity.Logging.Abstract
 {
     public interface ILoggerService
     {

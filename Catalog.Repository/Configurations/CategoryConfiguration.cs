@@ -17,6 +17,7 @@ namespace Catalog.Repository.Configurations
             builder.HasMany(c => c.Products)
                 .WithOne(c => c.Category)
                 .HasForeignKey(c => c.CategoryId);
+        
         }
     }
 }

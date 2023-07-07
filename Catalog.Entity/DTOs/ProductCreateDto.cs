@@ -5,7 +5,7 @@ namespace Catalog.Entity.DTOs
 {
     public record ProductCreateDto
     {
-        //[Required(ErrorMessage = "Namesss is required.")]
+        [Required(ErrorMessage = "Namesss is required.")]
         public string Name { get; init; }
 
         [Required(ErrorMessage = "CategoryId is required.")]

@@ -2,13 +2,13 @@
 using Catalog.Entity.DTOs;
 using Catalog.Entity.Exceptions;
 using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
+using Catalog.Repository.Pagination;
 using Catalog.Entity.RequestFeatureas;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.UnitOfWorks.Abstract;
-using Catalog.Service.Services.Abstract;
+using Catalog.Entity.Services.Abstract;
 
-namespace Catalog.Service.Services.Concrate
+namespace Catalog.Entity.Services.Concrate
 {
     public class ProductService : IProductService
     {

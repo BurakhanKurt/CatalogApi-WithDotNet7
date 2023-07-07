@@ -36,6 +36,7 @@ namespace Catalog.Repository.Repositories.Concrate
         public async Task<bool> AnyAsync(Expression<Func<T, bool>> expression) => 
             await _dbSet.AnyAsync(expression);
 
+
         // T nesnesini veritabanına asenkron olarak ekler
         public async Task CreateAsync(T entity)
         {

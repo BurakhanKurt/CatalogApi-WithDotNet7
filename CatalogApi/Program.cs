@@ -1,4 +1,6 @@
-using Catalog.Api.Extensions;
+using Catalog.Entity.Extesions;
+using Catalog.Entity.Logging.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 
 
@@ -9,7 +11,11 @@ LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(),
 
 // Add services to the container.
 
-builder.Services.AddControllers()
+
+builder.Services.AddControllers(config =>
+{
+    config.CacheProfiles.Add("30second", new CacheProfile() { Duration = 30 });
+}) 
 //Json loop ignore
 .AddNewtonsoftJson(opt =>
  {
@@ -17,28 +23,49 @@ builder.Services.AddControllers()
      Newtonsoft.Json.ReferenceLoopHandling.Ignore;
  });
 
+
+
+//ActionFilter
+builder.Services.ConfigureActionFilter();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+
+
 //----EXTENCIONS----//
+
 //Sql Context
 builder.Services.ConfigureSqlContext(builder.Configuration);
+
 //Repository
 builder.Services.RegisterRepositories();
-//Service
+
+//Entity
 builder.Services.ConfigureServices();
+
 //Cache
 builder.Services.ConfigureMemoryCaching();
-//Logger
-builder.Services.ConfigureLoggerService();
-//ActionFilter
-builder.Services.ConfigureActionFilter();
+
+//auto map
+builder.Services.ConfigureMapProfile();
+
+//ResponseCaching
+builder.Services.ConfigureResponseCaching();
+
+
 //------------------//
 
+
 var app = builder.Build();
-app.ConfigureExceptionHandler();
+
+//mw
+var logger = app.Services.GetRequiredService<ILoggerService>();
+app.ConfigureExceptionHandler(logger);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -47,7 +74,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
+
+app.UseResponseCaching();
 
 app.UseAuthorization();
 

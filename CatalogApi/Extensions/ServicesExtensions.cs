@@ -1,20 +1,23 @@
-﻿using Catalog.Api.ActionFilter;
-using Catalog.Api.Mapping;
+﻿using Api.ActionFilter;
+using Catalog.Entity.ActionFilter;
+using Catalog.Entity.Mapping;
 using Catalog.Repository;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.Repositories.Concrate;
 using Catalog.Repository.UnitOfWorks.Abstract;
 using Catalog.Repository.UnitOfWorks.Concrate;
-using Catalog.Service.Decorator;
-using Catalog.Service.Logging.Abstract;
-using Catalog.Service.Logging.Concrate;
-using Catalog.Service.Services.Abstract;
+using Catalog.Entity.Decorator;
+using Catalog.Entity.Logging.Abstract;
+using Catalog.Entity.Logging.Concrate;
+using Catalog.Entity.Services.Abstract;
+using Catalog.Entity.Services.Concrate;
 using Microsoft.EntityFrameworkCore;
 
-namespace Catalog.Api.Extensions
+namespace Catalog.Entity.Extesions
 {
     public static class ContextExtension
     {
+
         //Sql Context
         public static void ConfigureSqlContext(this IServiceCollection services,
             IConfiguration configuration) => services
@@ -29,36 +32,49 @@ namespace Catalog.Api.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
         }
 
-        //Service
+        //Entity
         public static void ConfigureServices(this IServiceCollection services)
         {
             //No caching service
             //services.AddScoped<IProductService, ProductService>();
-            //services.AddScoped<ICategoryService, CategoryService>();
+            
 
-            //Decorator -> Caching Service
+            //Decorator -> Caching Entity
             services.AddScoped<IProductService, ProductServiceV2>();
-            services.AddScoped<ICategoryService, CategoryServiceV2>();
 
+            services.AddScoped<ICategoryService, CategoryService>();
+
+            //uow
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //AutoMapper
-            services.AddAutoMapper(typeof(MapProfile));
+            
+            //Logging
+            services.AddSingleton<ILoggerService, LoggerService>();
 
         }
 
-        //Caching
-        public static void ConfigureMemoryCaching(this IServiceCollection services) => 
-            services.AddMemoryCache();
-        
-        //Logging
-        public static void ConfigureLoggerService(this IServiceCollection services) =>
-           services.AddSingleton<ILoggerService, LoggerService>();
-        
         //ActionFilter
         public static void ConfigureActionFilter(this IServiceCollection services)
         {
             services.AddScoped<ValidationFilterAttribute>();
+            services.AddSingleton<LogFilterAttribute>();
         }
+
+        //AutoMapper
+        public static void ConfigureMapProfile(this IServiceCollection services) =>
+            services.AddAutoMapper(typeof(MapProfile));
+
+        //Caching
+        public static void ConfigureMemoryCaching(this IServiceCollection services) => 
+            services.AddMemoryCache();
+
+        public static void ConfigureResponseCaching(this IServiceCollection services) => 
+            services.AddResponseCaching();
+
+        
+
+
+
+
 
     }
 }

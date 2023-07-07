@@ -1,10 +1,8 @@
 ﻿using Catalog.Entity.DTOs;
-using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
+using Catalog.Repository.Pagination;
 using Catalog.Entity.RequestFeatureas;
-using System.Linq.Expressions;
 
-namespace Catalog.Service.Services.Abstract
+namespace Catalog.Entity.Services.Abstract
 {
     public interface ICategoryService 
     {

@@ -1,23 +1,23 @@
 ﻿using AutoMapper;
 using Catalog.Entity.DTOs;
 using Catalog.Entity.Exceptions;
-using Catalog.Entity.Extensions;
 using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
+using Catalog.Repository.Pagination;
 using Catalog.Entity.RequestFeatureas;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.UnitOfWorks.Abstract;
-using Catalog.Service.Logging.Abstract;
-using Catalog.Service.Services.Abstract;
+using Catalog.Entity.Logging.Abstract;
+using Catalog.Entity.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 
-namespace Catalog.Service.Decorator
+namespace Catalog.Entity.Decorator
 {
     public class ProductServiceV2 : IProductService
     {
         private const string CacheProductKey = "ProductCache";
+        private static readonly object _lockObject = new object();
         private readonly IProductRepository _repository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
@@ -38,13 +38,20 @@ namespace Catalog.Service.Decorator
             _unitOfWork = unitOfWork;
             _memoryCache = memoryCache;
             _loggerService = loggerService;
-
-            if (!memoryCache.TryGetValue(CacheProductKey, out _))
+            
+            lock (_lockObject)
             {
-                _memoryCache.Set(CacheProductKey, _repository.FindAll(false).ToList());
+                if (!memoryCache.TryGetValue(CacheProductKey, out _))
+                {
+                    _memoryCache.Set(CacheProductKey, _repository
+                        .FindAll(false)
+                        .ToList());
+                }
+
             }
 
         }
+        
         //Create
         public async Task<ProductDto> CreateOneProductAsync(ProductCreateDto createdProduct)
         {
@@ -52,12 +59,7 @@ namespace Catalog.Service.Decorator
             var exist = await _categoryRepository.AnyAsync(c => c.Id == createdProduct.CategoryId);
 
             if (!exist)
-            {
-                //log
-                _loggerService.LogError($" -> {createdProduct.CategoryId} idsine sahip category bulunamadı");
                 throw new CategoryNotFoundException(createdProduct.CategoryId);
-            }
-                
 
             var product = _mapper.Map<Product>(createdProduct);
 
@@ -65,19 +67,17 @@ namespace Catalog.Service.Decorator
 
             await _unitOfWork.SaveAsync();
             
-            //log
-            _loggerService.LogInfo($" -> {product.Id} idsine sahip product eklendi");
-
             //Caching
             await CacheAllProducts();
 
             var productDto = _mapper.Map<ProductDto>(product);
             return productDto;
         }
+        
         //Remove
         public async Task RemoveOneProductAsync(int productId)
         {
-            var deletedProduct = await GetOneProductByIdCheckExistAsync(productId);
+            var deletedProduct = await GetOneProductByIdCheckExistFromCacheAsync(productId);
 
             _repository.Delete(deletedProduct);
 
@@ -86,10 +86,11 @@ namespace Catalog.Service.Decorator
             //Caching
             await CacheAllProducts();
         }
+        
         //Update
         public async Task UpdateOneProductAsync(ProductDto updatedProduct)
         {
-            var product = await GetOneProductByIdCheckExistAsync(updatedProduct.Id);
+            var product = await GetOneProductByIdCheckExistFromCacheAsync(updatedProduct.Id);
 
             product = _mapper.Map(updatedProduct, product);
 
@@ -100,7 +101,8 @@ namespace Catalog.Service.Decorator
             //Caching
             await CacheAllProducts();
         }
-
+       
+        //getall
         public Task<IEnumerable<ProductDto>> GetAllProductAsync(PaginationParams requestParams, bool trackChanges)
         {
             //Get memory
@@ -114,15 +116,17 @@ namespace Catalog.Service.Decorator
             return Task.FromResult(productDto);
         }
 
+        //By id
         public Task<ProductDto> GetOneProductByIdAsync(int productId)
         {
-            var product = GetOneProductByIdCheckExistAsync(productId);
+            var product = GetOneProductByIdCheckExistFromCacheAsync(productId);
 
             var productDto = _mapper.Map<ProductDto>(product);
 
             return Task.FromResult(productDto);
         }
 
+        //header data
         public Task<HeaderData> GetHeaderDataAsync(PaginationParams requestParams)
         {
             var count = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey).Count();
@@ -138,14 +142,14 @@ namespace Catalog.Service.Decorator
             return Task.FromResult(headerData);
         }
 
-        private Task<Product> GetOneProductByIdCheckExistAsync(int id)
+        private Task<Product> GetOneProductByIdCheckExistFromCacheAsync(int id)
         {
             var products = _memoryCache.Get<List<Product>>(CacheProductKey);
             var product = products.FirstOrDefault(x => x.Id == id);
 
             if (product is null)
                 throw new ProductNotFoundException(id);
-
+            
             return Task.FromResult(product);
 
         }

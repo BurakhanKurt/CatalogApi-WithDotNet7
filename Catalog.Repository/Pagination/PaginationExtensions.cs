@@ -1,5 +1,5 @@
 ﻿
-namespace Catalog.Entity.Extensions
+namespace Catalog.Repository.Pagination
 {
     public static class PaginationExtensions
     {

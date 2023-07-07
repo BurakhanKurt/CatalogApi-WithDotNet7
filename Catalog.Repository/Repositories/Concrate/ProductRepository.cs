@@ -1,7 +1,6 @@
 ﻿using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
 using Catalog.Repository.Repositories.Abstract;
-using Catalog.Entity.Extensions;
+using Catalog.Repository.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Repository.Repositories.Concrate
@@ -11,7 +10,8 @@ namespace Catalog.Repository.Repositories.Concrate
         public ProductRepository(AppDbContext context) : base(context)
         {
         }
-        
+
+
         public async Task<IEnumerable<Product>> GetAllProductsAsync
             (PaginationParams requestParams, bool trackCanges)
         {
@@ -21,6 +21,7 @@ namespace Catalog.Repository.Repositories.Concrate
                     requestParams.PageSize,
                     requestParams.PageNumber)
                 .ToListAsync();
+
         }
 
     }

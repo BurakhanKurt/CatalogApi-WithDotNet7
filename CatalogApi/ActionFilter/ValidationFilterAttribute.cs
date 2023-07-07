@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Catalog.Service.Exceptions;
 
-namespace Catalog.Api.ActionFilter
+namespace Catalog.Entity.ActionFilter
 {
     public class ValidationFilterAttribute : ActionFilterAttribute
-    {
+    {//validate aspect validation interception
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var controller = context.RouteData.Values["controller"];
@@ -16,11 +17,11 @@ namespace Catalog.Api.ActionFilter
 
             if (param is null)
             {
-                context.Result = new BadRequestObjectResult($"Object is null. " +
+                throw new BadRequestException($"Object is null. " +
                     $"Controller : {controller} " +
                     $"Action: {action}" +
                     $"Object : {param}");
-                return ; // 400
+
             }
             if (!context.ModelState.IsValid)
                 context.Result = new UnprocessableEntityObjectResult(context.ModelState); // 422

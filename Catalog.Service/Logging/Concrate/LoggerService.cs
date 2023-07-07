@@ -1,7 +1,7 @@
-﻿using Catalog.Service.Logging.Abstract;
+﻿using Catalog.Entity.Logging.Abstract;
 using NLog;
 
-namespace Catalog.Service.Logging.Concrate
+namespace Catalog.Entity.Logging.Concrate
 {
     public class LoggerService : ILoggerService
     {

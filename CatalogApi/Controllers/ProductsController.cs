@@ -1,12 +1,14 @@
-﻿using Catalog.Api.ActionFilter;
+﻿using Catalog.Entity.ActionFilter;
 using Catalog.Entity.DTOs;
-using Catalog.Entity.Pagination;
-using Catalog.Service.Services.Abstract;
+using Catalog.Repository.Pagination;
+using Catalog.Entity.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using Api.ActionFilter;
 
-namespace Catalog.Api.Controllers
+namespace Catalog.Entity.Controllers
 {
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -17,8 +19,7 @@ namespace Catalog.Api.Controllers
         {
             _productService = productService;
         }
-        
-        
+
         
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPost]
@@ -29,11 +30,7 @@ namespace Catalog.Api.Controllers
             return StatusCode(201, response);
         }
 
-
-
-
-
-
+        
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOneProductById([FromRoute(Name = "id")] int productId)
         {
@@ -42,6 +39,7 @@ namespace Catalog.Api.Controllers
             return StatusCode(200, response);
         }
 
+        
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> RemoveOneProductById([FromRoute(Name = "id")] int productId)
         {
@@ -49,6 +47,8 @@ namespace Catalog.Api.Controllers
 
             return StatusCode(200);
         }
+
+        
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [HttpPut]
         public async Task<IActionResult> UpdateOneProduct([FromBody] ProductDto updatedProduct)
@@ -58,13 +58,14 @@ namespace Catalog.Api.Controllers
             return StatusCode(200);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAllProducts([FromQuery] PaginationParams requestParams)
         {
             var response = await _productService.GetAllProductAsync(requestParams, false);
             var headerData = await _productService.GetHeaderDataAsync(requestParams);
 
-            Response.Headers.Add("Pagination",
+            Response.Headers.Add("Entity",
                 JsonSerializer.Serialize(headerData));
 
             return StatusCode(200, response);

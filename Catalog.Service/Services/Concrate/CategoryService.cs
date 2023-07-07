@@ -2,30 +2,35 @@
 using Catalog.Entity.DTOs;
 using Catalog.Entity.Exceptions;
 using Catalog.Entity.Models;
-using Catalog.Entity.Pagination;
+using Catalog.Repository.Pagination;
 using Catalog.Entity.RequestFeatureas;
 using Catalog.Repository.Repositories.Abstract;
 using Catalog.Repository.UnitOfWorks.Abstract;
-using Catalog.Service.Services.Abstract;
-using Microsoft.Extensions.Logging;
+using Catalog.Entity.Services.Abstract;
+using Catalog.Entity.Logging.Abstract;
 
-namespace Catalog.Service.Services.Concrate
+namespace Catalog.Entity.Services.Concrate
 {
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _repository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ILoggerService _logger;
         public CategoryService(ICategoryRepository repositoryManager,
             IMapper mapper,
-            IUnitOfWork unitOfWork
+            IUnitOfWork unitOfWork,
+            ILoggerService logger
             )
         {
+            _logger = logger;
             _repository = repositoryManager;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
 
+
+        //
         public async Task<CategoryDto> GetOneCategoryByIdAsync(int categoryId)
         {
             var category = await GetOneCategoryByIdCheckExistAsync(categoryId);
